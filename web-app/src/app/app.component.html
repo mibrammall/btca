@@ -11,7 +11,8 @@
   </div>
   <ul>
     <li *ngFor="let order of orders">
-      {{ order.description }} (Total: ${{ order.orderTotal }})
+      {{ order.description }} (Total:
+      {{ order.orderTotal | currency : '$' : true }})
       <ul>
         <li *ngFor="let orderProduct of order.orderProducts">
           {{ orderProduct.name }} ({{ orderProduct.quantity }} &#64;
