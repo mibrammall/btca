@@ -1,4 +1,4 @@
-﻿namespace Api.Database;
+namespace Api.Database;
 
 public partial class Order
 {
