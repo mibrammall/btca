@@ -23,15 +23,13 @@ namespace Api.Services
             {
                 CompanyName = x.Company.Name,
                 Description = x.Description,
-                OrderProducts = x.OrderProducts.Select(x => new Models.OrderProduct
+                OrderProducts = x.OrderProducts.Select(x => new Models.Product
                 {
-                    Product = new Models.Product
-                    {
-                        Name = x.Product.Name,
-                    },
-                    Price = x.Price
+                    Name = x.Product.Name,
+                    Price = x.Price,
+                    Quantity = x.Quantity
                 }),
-                OrderTotal = x.OrderProducts.Select(x => x.Price).Sum()
+                OrderTotal = x.OrderProducts.Select(x => x.Price * x.Quantity).Sum()
             });
         }
     }

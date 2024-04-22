@@ -10,6 +10,6 @@
 
         public decimal OrderTotal { get; set; }
 
-        public IEnumerable<OrderProduct> OrderProducts { get; set; }
+        public IEnumerable<Product> OrderProducts { get; set; }
     }
 }
