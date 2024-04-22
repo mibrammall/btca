@@ -1,7 +1,8 @@
 ﻿using System.Data;
+using Api.Infrastructure;
 using Api.Models;
 
-namespace Api.Infrastructure
+namespace Api.Services
 {
     public class OrderService : IOrderService
     {

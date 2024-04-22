@@ -1,6 +1,6 @@
-﻿using Api.Infrastructure;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Api.Models;
+using Api.Services;
 
 namespace Api.Controllers
 {
