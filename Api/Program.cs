@@ -15,6 +15,17 @@ builder.Services.AddDbContext<OrdersContext>(options =>
     options.UseSqlServer("name=ConnectionStrings:OrdersDb");
 });
 
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(
+        name: "Development",
+        policy =>
+        {
+            policy.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+        });
+});
+
 builder.Services.AddScoped<IOrderService, OrderService>();
 
 var app = builder.Build();
@@ -24,8 +35,8 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseCors("Development");
 }
-
 // app.UseHttpsRedirection();
 
 app.UseAuthorization();
