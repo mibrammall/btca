@@ -7,11 +7,11 @@ namespace Api.Services
 
     public class OrderService(OrdersContext db) : IOrderService
     {
-        private readonly OrdersContext _orderRepository = db;
+        private readonly OrdersContext _db = db;
 
         public async Task<IEnumerable<Models.Order>> GetOrdersForCompany(int CompanyId)
         {
-            var result = await _orderRepository
+            var result = await _db
                 .Orders
                 .Include(x => x.OrderProducts)
                 .ThenInclude(x => x.Product)
