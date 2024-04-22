@@ -21,7 +21,7 @@ namespace Api.Infrastructure
 
             while (reader1.Read())
             {
-                var record1 = (IDataRecord)reader1;
+                var record1 = reader1;
 
                 values.Add(new Order()
                 {
