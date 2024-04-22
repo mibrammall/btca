@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Api.Database;
+﻿namespace Api.Database;
 
 public partial class OrderProduct
 {
