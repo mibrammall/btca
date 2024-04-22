@@ -1,16 +1,16 @@
 ﻿using System.Data;
-using Api.Infrastructure;
+using Api.Database;
 using Api.Models;
 
 namespace Api.Services
 {
-    public class OrderService : IOrderService
+
+    public class OrderService(OrdersContext db) : IOrderService
     {
-        public List<Order> GetOrdersForCompany(int CompanyId)
+        private readonly OrdersContext _orderRepository = db;
+
+        public async Task<List<Order>> GetOrdersForCompany(int CompanyId)
         {
-
-            var database = new Database();
-
             // Get the orders
             var sql1 =
                 "SELECT c.name, o.description, o.order_id FROM company c INNER JOIN [order] o on c.company_id=o.company_id";

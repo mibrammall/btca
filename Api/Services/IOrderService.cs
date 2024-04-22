@@ -4,5 +4,5 @@ namespace Api.Services;
 
 public interface IOrderService
 {
-    List<Order> GetOrdersForCompany(int CompanyId);
+    Task<List<Order>> GetOrdersForCompany(int CompanyId);
 }

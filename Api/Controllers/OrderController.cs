@@ -13,9 +13,9 @@ namespace Api.Controllers
 
     [HttpGet]
     [Route("order/{id}")]
-    public IEnumerable<Order> GetOrders(int id = 1)
+    public async Task<IEnumerable<Order>> GetOrders(int id = 1)
     {
-      return _orderService.GetOrdersForCompany(id);
+      return await _orderService.GetOrdersForCompany(id);
     }
   }
 }
