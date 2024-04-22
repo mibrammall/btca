@@ -11,11 +11,12 @@ namespace Api.Services
 
         public async Task<IEnumerable<Models.Order>> GetOrdersForCompany(int CompanyId)
         {
-            var result = await _orderRepository.Orders.Where(o => o.CompanyId == CompanyId).ToListAsync();
+            var result = await _orderRepository.Orders.Include(x => x.OrderProducts).Where(o => o.CompanyId == CompanyId).ToListAsync();
 
             return result.Select(x => new Models.Order
             {
-                CompanyName = x.CompanyId.ToString()
+                CompanyName = x.CompanyId.ToString(),
+                OrderProducts = x.OrderProducts.Select(x => new Models.OrderProduct()),
             });
 
             // //Get the order products
