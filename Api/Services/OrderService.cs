@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using Api.Database;
 using Api.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Services
 {
@@ -9,73 +10,54 @@ namespace Api.Services
     {
         private readonly OrdersContext _orderRepository = db;
 
-        public async Task<List<Order>> GetOrdersForCompany(int CompanyId)
+        public async Task<IEnumerable<Order>> GetOrdersForCompany(int CompanyId)
         {
-            // Get the orders
-            var sql1 =
-                "SELECT c.name, o.description, o.order_id FROM company c INNER JOIN [order] o on c.company_id=o.company_id";
+            var result = await _orderRepository.Orders.Where(o => o.CompanyId == CompanyId).ToListAsync();
 
-            var reader1 = database.ExecuteReader(sql1);
-
-            var values = new List<Order>();
-
-            while (reader1.Read())
+            return result.Select(x => new Order
             {
-                var record1 = reader1;
+                CompanyName = x.CompanyId.ToString()
+            });
 
-                values.Add(new Order()
-                {
-                    CompanyName = record1.GetString(0),
-                    Description = record1.GetString(1),
-                    OrderId = record1.GetInt32(2),
-                    OrderProducts = new List<OrderProduct>()
-                });
+            // //Get the order products
+            // var sql2 =
+            //     "SELECT op.price, op.order_id, op.product_id, op.quantity, p.name, p.price FROM orderproduct op INNER JOIN product p on op.product_id=p.product_id";
 
-            }
+            // var reader2 = database.ExecuteReader(sql2);
 
-            reader1.Close();
+            // var values2 = new List<OrderProduct>();
 
-            //Get the order products
-            var sql2 =
-                "SELECT op.price, op.order_id, op.product_id, op.quantity, p.name, p.price FROM orderproduct op INNER JOIN product p on op.product_id=p.product_id";
+            // while (reader2.Read())
+            // {
+            //     var record2 = (IDataRecord)reader2;
 
-            var reader2 = database.ExecuteReader(sql2);
+            //     values2.Add(new OrderProduct()
+            //     {
+            //         OrderId = record2.GetInt32(1),
+            //         ProductId = record2.GetInt32(2),
+            //         Price = record2.GetDecimal(0),
+            //         Quantity = record2.GetInt32(3),
+            //         Product = new Product()
+            //         {
+            //             Name = record2.GetString(4),
+            //             Price = record2.GetDecimal(5)
+            //         }
+            //     });
+            // }
 
-            var values2 = new List<OrderProduct>();
+            // reader2.Close();
 
-            while (reader2.Read())
-            {
-                var record2 = (IDataRecord)reader2;
+            // foreach (var order in values)
+            // {
+            //     foreach (var orderproduct in values2)
+            //     {
+            //         if (orderproduct.OrderId != order.OrderId)
+            //             continue;
 
-                values2.Add(new OrderProduct()
-                {
-                    OrderId = record2.GetInt32(1),
-                    ProductId = record2.GetInt32(2),
-                    Price = record2.GetDecimal(0),
-                    Quantity = record2.GetInt32(3),
-                    Product = new Product()
-                    {
-                        Name = record2.GetString(4),
-                        Price = record2.GetDecimal(5)
-                    }
-                });
-            }
-
-            reader2.Close();
-
-            foreach (var order in values)
-            {
-                foreach (var orderproduct in values2)
-                {
-                    if (orderproduct.OrderId != order.OrderId)
-                        continue;
-
-                    order.OrderProducts.Add(orderproduct);
-                    order.OrderTotal = order.OrderTotal + (orderproduct.Price * orderproduct.Quantity);
-                }
-            }
-
-            return values;
+            //         order.OrderProducts.Add(orderproduct);
+            //         order.OrderTotal = order.OrderTotal + (orderproduct.Price * orderproduct.Quantity);
+            //     }
+            // }
         }
     }
 }
