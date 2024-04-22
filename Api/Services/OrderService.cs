@@ -1,6 +1,5 @@
 ﻿using System.Data;
 using Api.Database;
-using Api.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Services
@@ -10,11 +9,11 @@ namespace Api.Services
     {
         private readonly OrdersContext _orderRepository = db;
 
-        public async Task<IEnumerable<Order>> GetOrdersForCompany(int CompanyId)
+        public async Task<IEnumerable<Models.Order>> GetOrdersForCompany(int CompanyId)
         {
             var result = await _orderRepository.Orders.Where(o => o.CompanyId == CompanyId).ToListAsync();
 
-            return result.Select(x => new Order
+            return result.Select(x => new Models.Order
             {
                 CompanyName = x.CompanyId.ToString()
             });
