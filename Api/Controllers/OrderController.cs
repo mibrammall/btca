@@ -1,8 +1,9 @@
-﻿namespace Api.Controllers
+﻿using Api.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
+using Api.Models;
+
+namespace Api.Controllers
 {
-  using Infrastructure;
-  using Microsoft.AspNetCore.Mvc;
-  using Models;
 
   [ApiController]
   [Route("api")]
