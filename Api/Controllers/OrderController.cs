@@ -7,16 +7,15 @@ namespace Api.Controllers
 
   [ApiController]
   [Route("api")]
-  public class OrderController : ControllerBase
+  public class OrderController(IOrderService orderService) : ControllerBase
   {
+    private readonly IOrderService _orderService = orderService;
+
     [HttpGet]
     [Route("order/{id}")]
-
     public IEnumerable<Order> GetOrders(int id = 1)
     {
-      var data = new OrderService();
-
-      return data.GetOrdersForCompany(id);
+      return _orderService.GetOrdersForCompany(id);
     }
   }
 }
