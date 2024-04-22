@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.Database;
 
-public class OrdersContext : DbContext
+public class OrdersContext(DbContextOptions<OrdersContext> context) : DbContext(context)
 {
     public DbSet<CompanyEntity> Companies { get; set; }
     public DbSet<OrderEntity> Orders { get; set; }
@@ -12,6 +12,9 @@ public class OrdersContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-
+        modelBuilder.Entity<CompanyEntity>().HasKey(c => c.CompanyId);
+        modelBuilder.Entity<OrderEntity>().HasKey(c => c.OrderId);
+        modelBuilder.Entity<ProductEntity>().HasKey(c => c.ProductId);
+        modelBuilder.Entity<OrderProduct>().HasNoKey();
     }
 }

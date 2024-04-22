@@ -1,8 +1,14 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Api.Database;
 
+[Table("Order")]
 public class OrderEntity
 {
-    public long OrderId { get; set; }
+    [Column("order_id")]
+    public int OrderId { get; set; }
+    [Column("description")]
     public string Description { get; set; }
-    public long CompanyId { get; set; }
+    [Column("company_id")]
+    public int CompanyId { get; set; }
 }
