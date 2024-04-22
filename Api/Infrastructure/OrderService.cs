@@ -3,8 +3,7 @@ using Api.Models;
 
 namespace Api.Infrastructure
 {
-
-    public class OrderService
+    public class OrderService : IOrderService
     {
         public List<Order> GetOrdersForCompany(int CompanyId)
         {
