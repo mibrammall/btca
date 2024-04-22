@@ -1,7 +1,8 @@
-﻿namespace Api.Infrastructure
+﻿using System.Data;
+using Api.Models;
+
+namespace Api.Infrastructure
 {
-    using System.Data;
-    using Models;
 
     public class OrderService
     {
@@ -17,10 +18,10 @@
             var reader1 = database.ExecuteReader(sql1);
 
             var values = new List<Order>();
-            
+
             while (reader1.Read())
             {
-                var record1 = (IDataRecord) reader1;
+                var record1 = (IDataRecord)reader1;
 
                 values.Add(new Order()
                 {
@@ -58,7 +59,7 @@
                         Price = record2.GetDecimal(5)
                     }
                 });
-             }
+            }
 
             reader2.Close();
 
