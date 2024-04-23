@@ -1,6 +1,5 @@
 using Api.Database;
 using Api.Services;
-using Microsoft.EntityFrameworkCore;
 using Moq;
 using Moq.EntityFrameworkCore;
 
@@ -43,15 +42,6 @@ public class OrderServiceTests
     }
 
     [Test]
-    public async Task It_Displays_Correct_Order_Total()
-    {
-        var order = await _sut.GetOrdersForCompany(1);
-        Console.WriteLine(order.Count());
-        var firstOrder = order.First();
-        Assert.That(firstOrder.OrderTotal, Is.EqualTo(30));
-    }
-
-    [Test]
     public async Task It_Displays_Correct_Order_Products()
     {
         var order = await _sut.GetOrdersForCompany(1);
@@ -62,6 +52,7 @@ public class OrderServiceTests
             Assert.That(firstOrder.OrderProducts.First().Name, Is.EqualTo("Product 1"));
             Assert.That(firstOrder.OrderProducts.First().Price, Is.EqualTo(10));
             Assert.That(firstOrder.OrderProducts.First().Quantity, Is.EqualTo(2));
+            Assert.That(firstOrder.OrderTotal, Is.EqualTo(30));
         });
     }
 

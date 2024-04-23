@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
+import { Order } from '../models/Order';
+
 @Component({
   standalone: true,
   imports: [CommonModule, RouterModule],
@@ -11,11 +13,13 @@ import { RouterModule } from '@angular/router';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  orders: any[] = [];
+  orders: Order[] = [];
+  title: string;
   year = new Date().getFullYear();
 
   constructor(http: HttpClient) {
-    http.get<any>('/api/order/1').subscribe((orders) => {
+    this.title = 'web-app';
+    http.get<Order[]>('/api/order/1').subscribe((orders) => {
       this.orders = orders;
     });
   }
