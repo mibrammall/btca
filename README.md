@@ -12,9 +12,17 @@ Fork this project to your personal repo and commit all your changes to that bran
 
 ## Changes for Running Locally
 
-Update the connection string in the class <project root>\Api\Infrastructure\Database.cs.
+~Update the connection string in the class <project root>\Api\Infrastructure\Database.cs.~
 
-Change the AttachDbFile name to the full path of the BrainWare.mdf file (located under <project root>\Api\Data\).
+~Change the AttachDbFile name to the full path of the BrainWare.mdf file (located under <project root>\Api\Data\).~
+
+Either add a connection string to the appsettings.json, or preferably init a secret and the path to the connection string should look like
+
+```
+  "ConnectionStrings": {
+    "OrdersDb": ""
+  }
+```
 
 
 ## Original Output Example
